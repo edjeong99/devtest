@@ -5,12 +5,9 @@
  * init
  */
 
-// require('raz-lib.php'); 
-
 
 
  // set environment variable
-putenv("RAZOYO_TEST_KEY=ku%64TeYMo5mAIFj8e");
 
 
 class CSVFormat implements FormatInterface
@@ -46,13 +43,13 @@ class CSVFormat implements FormatInterface
        $enclosure_esc = preg_quote($enclosure, '/');  
   
         // get price and short description using product info API
-        $result = $client->call($session, 'catalog_product.info', '4');
+        //$result = $client->call($session, 'catalog_product.info', '4');
         
         // SKU, Name, Price, and Short Description
         $outputArray[0] = $product['sku'];
         $outputArray[1] = $product['name'];
-        $outputArray[2] = $result['price'];
-        $outputArray[3] = $result['short description'];
+        //$outputArray[2] = $result['price'];
+        //$outputArray[3] = $result['short description'];
 
         // if content has comma, put double quotes around, so excel won't count that as two separate entries
         foreach ( $outputArray as $output ) { 

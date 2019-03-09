@@ -8,6 +8,9 @@
 require_once __DIR__ . '/raz-lib.php';
 require_once __DIR__ . '/dev-lib.php';
 
+// env.php has environmental variable value for apiKey
+require('env.php');
+
 $apiWsdl = 'https://www.shopjuniorgolf.com/api/?wsdl';
 $apiUser = 'devtest';
 $apiKey = getenv('RAZOYO_TEST_KEY');
@@ -37,7 +40,7 @@ $params =  array(
  
 $client = new SoapClient($apiWsdl, $params);
 
-$session = $client->login($apiUser, 'ku%64TeYMo5mAIFj8e');
+$session = $client->login($apiUser, $apiKey);
 
 // get catalog product list from API as array    
 // returns prod id, sku, name
@@ -49,8 +52,10 @@ $apiData = $client->call($session, 'catalog_product.list');
 $apiData = array_chunk($apiData, 2);
 $apiData = $apiData[0];
 
-// print_r( $apiData); 
-// echo "result end";
+// foreach
+//$products = apidata + price + short description 
+
+
 $client->endSession($session);
 
 // You will need to create a FormatFactory.
