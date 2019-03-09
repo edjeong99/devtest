@@ -38,11 +38,19 @@ $params =  array(
 $client = new SoapClient($apiWsdl, $params);
 
 $session = $client->login($apiUser, 'ku%64TeYMo5mAIFj8e');
-echo $session;
-    
-$apiData = $client->call($session, 'catalog_product.info', '4');
+
+// get catalog product list from API as array    
+// returns prod id, sku, name
+$apiData = $client->call($session, 'catalog_product.list');
+//$apiData = $client->call($session, 'catalog_product.currentStore', 'english');
+
 echo "result start";
-print_r( $apiData);
+ 
+ // for test, only get first 2 prodcut from array
+$apiData = array_chunk($apiData, 2);
+$apiData = $apiData[0];
+
+print_r( $apiData); 
 echo "result end";
 $client->endSession($session);
 
@@ -57,4 +65,5 @@ $output = new ProductOutput();
 // set product and format
 $output->setProducts($apiData);
 $output->setFormat($format);
+echo "after setFormat";
 $output->format();
