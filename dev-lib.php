@@ -4,32 +4,52 @@
  * Your code goes here
  * init
  */
+require('export.php'); 
 
  // set environment variable
 putenv("RAZOYO_TEST_KEY=ku%64TeYMo5mAIFj8e");
 
 
-$msg = "Hi Debug Console 2";
+$msg = "Hi Debug Console 2 -- ";
 echo $msg;
+echo $apiUser;
 
-/*
 
-// import ...  
-
-class SoapClient
+class FormatFactory 
 {
-    public function __construct($api_URL) {
-        $this->api_URL = $api_URL;
-        $this->apiUser = $apiUser;
-        $this->apiKey = getenv('RAZOYO_TEST_KEY');
+    
+    public $apiData = array();
+
+    public function create(string $formatKey)
+    {
+    //     // get data from API
+    //    
+
+
+    // if formatKey == csv
+    // return a new class instance of csvFormat class "return new CSVFormat()
+    // if formatKey == jscon
+    // return ....
+
+    // all class should have start, finish, formatProduct method 
+    // 
+    }
+    
+
+}
+
+class CSVFormat
+{
+    public function start(){
+        echo "Starting";
     }
 
-    public function getDateFromAPI(){
-        $session = $this->login($this->apiUser, $this->apiKey);
+    public function finish(){
+        echo "The End";
     }
 
-    public function printOut(){
-        echo $this->apiUser;
+    public function formatProduct(array $product){
+       // process product
+       // return correct format 
     }
 }
-*/

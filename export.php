@@ -16,8 +16,8 @@ $formatKey = 'csv'; // csv, xml, or json
 
 // Connect to SOAP API using PHP's SoapClient class
 // Feel free to create your own classes to organize code
-// $soap = new SoapClient($apiWsdl);
-// $soap->printOut();
+
+
 $contextOptions = array(
     'ssl' => array(
     'verify_peer' => false,
@@ -33,27 +33,28 @@ $params =  array(
     'cache_wsdl' => WSDL_CACHE_NONE,
     'stream_context' => $sslContext
     );
-$client = new SoapClient($apiWsdl, $params);
 
-// If somestuff requires API authentication,
-// then get a session token
+ 
+$client = new SoapClient($apiWsdl, $params);
 
 $session = $client->login($apiUser, 'ku%64TeYMo5mAIFj8e');
 echo $session;
-
-$result = $client->call($session, 'catalog_product.info', '4');
+    
+$apiData = $client->call($session, 'catalog_product.info', '4');
 echo "result start";
-print_r( $result);
+print_r( $apiData);
 echo "result end";
 $client->endSession($session);
-// ...
-/*
+
 // You will need to create a FormatFactory.
-$factory = new FormatFactory(); 
-$format = $factory->create($formatKey);
+$factory = new FormatFactory();
+
+// assign appropriate instance of Format Class
+$format = $factory->create($formatKey);  
 
 // See ProductOutput in raz-lib.php for reference
 $output = new ProductOutput();
-// ...
+// set product and format
+$output->setProducts($apiData);
+$output->setFormat($format);
 $output->format();
-*/
