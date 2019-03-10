@@ -68,6 +68,38 @@ class CSVFormat implements FormatInterface
 //     $field = strval($field); // Change $field to string if it's a numeric type
 // }
 
+class XMLFormat implements FormatInterface
+{
+  
+
+    public function start()
+    {
+        $XMLStart = "<ROW0>\n";
+        return $XMLStart;
+    }
+
+    public function finish()
+    {
+        $XMLEnd = "\n</ROW0>\n";
+        return $XMLEnd;
+    }
+
+    // get a product info as argument
+    // return XML format of that product
+    public function formatProduct( $product)
+    {
+        $outputXMLString = '';
+
+             // append to XML string
+            $outputXMLString .= "<SKU>" . $product['sku']. "</SKU>";
+            $outputXMLString .= "<NAME>" . $product['name']. "</NAME>";
+            $outputXMLString .= "<PRICE>" . $product['price']. "</PRICE>";
+            $outputXMLString .= "<SHORT_DESCRIPTION>" . $product['short_description']. "</SHORT_DESCRIPTION>";
+ 
+        return $outputXMLString;
+    }
+}
+
 class FormatFactory 
 {
     public $apiData = array();
@@ -79,7 +111,9 @@ class FormatFactory
         if ($formatKey == 'csv') {
             $result = new CSVFormat();
         }
-
+        if ($formatKey == 'xml') {
+            $result = new XMLFormat();
+        }
         return $result;
 
     // if formatKey == csv

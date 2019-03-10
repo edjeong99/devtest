@@ -15,7 +15,7 @@ $apiWsdl = 'https://www.shopjuniorgolf.com/api/?wsdl';
 $apiUser = 'devtest';
 $apiKey = getenv('RAZOYO_TEST_KEY');
 
-$formatKey = 'csv'; // csv, xml, or json
+$formatKey = 'xml'; // csv, xml, or json
 
 // Connect to SOAP API using PHP's SoapClient class
 // Feel free to create your own classes to organize code
@@ -45,8 +45,8 @@ $session = $client->login($apiUser, $apiKey);
 // get catalog product list from API as array    
 // returns prod id, sku, name
 $products = $client->call($session, 'catalog_product.list');
-// $products = array_chunk($products, 2);
-// $products = $products[0];
+$products = array_chunk($products, 2);
+$products = $products[0];
 // print_r($products);
 // $product_data = $client->call($session, 'catalog_product.info', $products[114]["product_id"]);
 // print_r($product_data); 
