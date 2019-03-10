@@ -42,14 +42,12 @@ class CSVFormat implements FormatInterface
        $delimiter_esc = preg_quote($this->delimiter, '/'); 
        $enclosure_esc = preg_quote($enclosure, '/');  
   
-        // get price and short description using product info API
-        //$result = $client->call($session, 'catalog_product.info', '4');
-        
-        // SKU, Name, Price, and Short Description
+    
+        // assign SKU, Name, Price, and Short Description
         $outputArray[0] = $product['sku'];
         $outputArray[1] = $product['name'];
-        //$outputArray[2] = $result['price'];
-        //$outputArray[3] = $result['short description'];
+        $outputArray[2] = $product['price'];
+        $outputArray[3] = $product['short_description'];
 
         // if content has comma, put double quotes around, so excel won't count that as two separate entries
         foreach ( $outputArray as $output ) { 
