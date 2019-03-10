@@ -15,7 +15,7 @@ $apiWsdl = 'https://www.shopjuniorgolf.com/api/?wsdl';
 $apiUser = 'devtest';
 $apiKey = getenv('RAZOYO_TEST_KEY');
 
-$formatKey = 'xml'; // csv, xml, or json
+$formatKey = 'csv'; // csv, xml, or json
 
 // Connect to SOAP API using PHP's SoapClient class
 // Feel free to create your own classes to organize code
@@ -63,7 +63,7 @@ $products = array_chunk($products, 2);
 $products = $products[0];
 print_r($products);
 
-
+// echo json_encode($products);
  
   // for test, only get first 2 prodcut from array
 // $products = array_chunk($products, 2);

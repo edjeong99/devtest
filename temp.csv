@@ -1,0 +1,7 @@
+header("Content-type: text/csv"); 
+header("Content-Disposition: attachment; filename=BestStarTrekEpisodes" . date('Y-m-d--H-i-s') . ".csv"); 
+header("Pragma: no-cache"); 
+header("Expires: 0"); 
+SKU,Name,Price,Short Description 
+PP-BOYSBLUEPOLO-S,"Par Plus Boys Blue Junior Golf Polo Shirt - 06/08 - Small",30.0000,"Available in several colors, this bright colored, moisture wicking fabric moves moisture away from your skin leaving you dry and comfortable.  Let your junior golfer dress like the guys in the PGA, without the pros budget for golf clothes!   This golf shirt has a stylish logo, 4 button front, and is 100% polyester."
+PP-BOYSBLUEPOLO-M,"Par Plus Boys Blue Junior Golf Polo Shirt - 10/12 - Medium",30.0000,"Available in several colors, this bright colored, moisture wicking fabric moves moisture away from your skin leaving you dry and comfortable.  Let your junior golfer dress like the guys in the PGA, without the pros budget for golf clothes!   This golf shirt has a stylish logo, 4 button front, and is 100% polyester."

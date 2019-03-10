@@ -2,18 +2,19 @@
 
 /**
  * Your code goes here
- * init
+ * 
  */
 
 
 
- // set environment variable
-
-
+// CSVFormat has an input argument of an Array that contains info about a product
+// it returns SKU, name, price, short description of the product
+// in CSV format
 class CSVFormat implements FormatInterface
 {
-    public $delimiter = ',' ;
-    public $newLine = "\r\n" ;
+    // initialize variable
+    public $delimiter = ',' ;  // delimiter separate items in csv format
+    public $newLine = "\r\n" ; // newline put 'enter' that specify new row in csv
 
     public function start()
     {
@@ -27,7 +28,7 @@ class CSVFormat implements FormatInterface
 
     public function finish()
     {
-        echo "The End";
+        
     }
 
     // get a product info as argument
@@ -57,7 +58,7 @@ class CSVFormat implements FormatInterface
               $cleanedOutputArray[] = $output; } 
             } 
 
-        $outputCSVString = implode( $this->delimiter,  $outputArray )."\r\n";
+        $outputCSVString = implode( $this->delimiter,  $cleanedOutputArray )."\r\n";
         return $outputCSVString;
 
     }
@@ -68,19 +69,22 @@ class CSVFormat implements FormatInterface
 //     $field = strval($field); // Change $field to string if it's a numeric type
 // }
 
+
+// XMLFormat has an input argument of an Array that contains info about a product
+// it returns SKU, name, price, short description of the product
+// in XML format
 class XMLFormat implements FormatInterface
 {
-  
 
     public function start()
     {
-        $XMLStart = "<ROW0>\n";
+        $XMLStart = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n<PRODUCTS>\n";
         return $XMLStart;
     }
 
     public function finish()
     {
-        $XMLEnd = "\n</ROW0>\n";
+        $XMLEnd = "</PRODUCTS>\n";
         return $XMLEnd;
     }
 
@@ -91,19 +95,23 @@ class XMLFormat implements FormatInterface
         $outputXMLString = '';
 
              // append to XML string
-            $outputXMLString .= "<SKU>" . $product['sku']. "</SKU>";
-            $outputXMLString .= "<NAME>" . $product['name']. "</NAME>";
-            $outputXMLString .= "<PRICE>" . $product['price']. "</PRICE>";
-            $outputXMLString .= "<SHORT_DESCRIPTION>" . $product['short_description']. "</SHORT_DESCRIPTION>";
- 
+             $outputXMLString .= "<PRODUCT>\n";
+            $outputXMLString .= "<SKU>" . $product['sku']. "</SKU>\n";
+            $outputXMLString .= "<NAME>" . $product['name']. "</NAME>\n";
+            $outputXMLString .= "<PRICE>" . $product['price']. "</PRICE>\n";
+            $outputXMLString .= "<SHORT_DESCRIPTION>" . $product['short_description']. "</SHORT_DESCRIPTION>\n";
+            $outputXMLString .= "</PRODUCT>\n";
         return $outputXMLString;
     }
 }
 
+
+// FormatFactory take a formatKey and
+// return an instance of Class that match formatKey
+// returned Class has method of start, finish and formatProduct
+// that returns product info configured in that format
 class FormatFactory 
 {
-    public $apiData = array();
-
     public function create( $formatKey)
     {
         // create function return appropriate format Class depends on $formatKey
@@ -114,12 +122,10 @@ class FormatFactory
         if ($formatKey == 'xml') {
             $result = new XMLFormat();
         }
+
+
         return $result;
 
-    // if formatKey == csv
-    // return a new class instance of csvFormat class "return new CSVFormat()
-    // if formatKey == jscon
-    // return ....
 
     }
 }
