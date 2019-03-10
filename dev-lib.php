@@ -7,20 +7,21 @@
 
 
 // JSONFormat has an input argument of an Array that contains info about a product
-// it returns SKU, name, price, short description of the product
-// in JSON format
+// it returns array of JSON object that contains
+// SKU, name, price, short description of the product
+
 class JSONFormat implements FormatInterface
 {
 
     public function start()
     {
-        $JSONStart = "{";
+        $JSONStart = "[";
         return $JSONStart;
     }
 
     public function finish()
     {
-        $JSONEnd = "}";
+        $JSONEnd = "]";
         return $JSONEnd;
     }
 
@@ -32,8 +33,8 @@ class JSONFormat implements FormatInterface
 
              // append to JSON string
             $outputJSONString .= "{\"sku\" : \"". $product['sku']. "\",\n";
-            $outputJSONString .= "\"name\" : \"" . $product['name']. ",\n";
-            $outputJSONString .= "\"price\" : " . $product['price']. ",\n";
+            $outputJSONString .= "\"name\" : \"" . $product['name']. "\",\n";
+            $outputJSONString .= "\"price\" : \"" . $product['price']. "\",\n";
             $outputJSONString .= "\"short_description\" : \"" . $product['short_description']. "\"},\n";
            
         return $outputJSONString;
@@ -52,10 +53,11 @@ class CSVFormat implements FormatInterface
 
     public function start()
     {
-     $CSVStart = "Content-type: text/csv \n";
-     $CSVStart .= "Content-Disposition: attachment; filename=productInfo" . date('Y-m-d') . ".csv\r\n"; 
-     $CSVStart .="Pragma: no-cache\n"; 
-     $CSVStart .="Expires: 0 \n"; 
+        $CSVStart = '';
+    //  $CSVStart = "Content-type: text/csv \n";
+    //  $CSVStart .= "Content-Disposition: attachment; filename=productInfo" . date('Y-m-d') . ".csv\r\n"; 
+    //  $CSVStart .="Pragma: no-cache\n"; 
+    //  $CSVStart .="Expires: 0 \n"; 
      $CSVStart .= "SKU" . $this->delimiter . "Name" . $this->delimiter . "Price" . $this->delimiter . "Short Description \r\n";
      return $CSVStart;
     }
@@ -84,9 +86,10 @@ class CSVFormat implements FormatInterface
         $outputArray[2] = $product['price'];
         $outputArray[3] = $product['short_description'];
 
-        // if content has comma, put double quotes around, so excel won't count that as two separate entries
+  
+        // if content has comma or double quote, put double quotes around, so excel won't count that as two separate entries
         foreach ( $outputArray as $output ) { 
-            if ( preg_match( "/(?:${delimiter_esc}|${enclosure_esc}|\s)/", $output ) ) { 
+            if ( preg_match( "/($this->delimiter | $enclosure)/", $output ) ) { 
               $cleanedOutputArray[] = $enclosure . str_replace($enclosure, $enclosure . $enclosure, $output) . $enclosure; 
             } else { 
               $cleanedOutputArray[] = $output; } 
@@ -97,11 +100,6 @@ class CSVFormat implements FormatInterface
 
     }
 }
-
-// if input is number, convert it to string for csv
-// if (gettype($field) == 'integer' || gettype($field) == 'double') {
-//     $field = strval($field); // Change $field to string if it's a numeric type
-// }
 
 
 // XMLFormat has an input argument of an Array that contains info about a product

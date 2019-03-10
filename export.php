@@ -8,7 +8,7 @@
 require_once __DIR__ . '/raz-lib.php';
 require_once __DIR__ . '/dev-lib.php';
 
-// env.php has environmental variable value for apiKey
+// getting env.php which has environmental variable value for apiKey
 require('env.php');
 
 $apiWsdl = 'https://www.shopjuniorgolf.com/api/?wsdl';
@@ -45,31 +45,21 @@ $session = $client->login($apiUser, $apiKey);
 // get catalog product list from API as array    
 // returns prod id, sku, name
 $products = $client->call($session, 'catalog_product.list');
+
+// for testing purpose, use only first 2 product in the product list
 $products = array_chunk($products, 2);
 $products = $products[0];
-// print_r($products);
-// $product_data = $client->call($session, 'catalog_product.info', $products[114]["product_id"]);
-// print_r($product_data); 
+
 // for each product, get price and short description 
 for ($i = 0; $i < count($products); $i++) {
-    echo  $products[$i]["product_id"] . "\n"; 
+
     $product_data = $client->call($session, 'catalog_product.info', $products[$i]["product_id"]);
 //echo $product_data["price"] . "\n";
     $products[$i]["price"] = (array_key_exists('price', $product_data)) ? $product_data["price"] : null;
     $products[$i]["short_description"] = $product_data["short_description"];
 }
 
-$products = array_chunk($products, 2);
-$products = $products[0];
-print_r($products);
-
-// echo json_encode($products);
- 
-  // for test, only get first 2 prodcut from array
-// $products = array_chunk($products, 2);
-// $products = $products[0];
-// print_r($products);
-
+//  print_r($products);
 
 $client->endSession($session);
 

@@ -1,3 +1,32 @@
+# this is a submission from Edward Jeong for the Razoyo's Developer Test as part of a job application.
+
+Applicant : Edward Jeong
+Submit Date : March 10th 2019
+Company : Razoyo
+
+The test asks applicant to implement PHP code to return appropriated formated product data from Magento's API.
+
+# execution note
+To keep the api key secure, I created "env.php" file.  This file register key value for environmental variable "RAZOYO_TEST_KEY"  To execute correctly this submission, you need to set value for "RAZOYO_TEST_KEY"
+
+
+#Assumptions
+From the instruction, I made following assumption to finish
+    - The required " query data" are product data from product.info and product.list API.
+
+    - I can add my codes to export.php as well as to dev-lib.php
+
+    - Header row for CSV format are the titles of each column, such as sku and price.
+
+# Performance Issue
+My codes call product.info API for each product in synchronous way which takes long time to complete.  For future improvement, I would change it to be asynchronous if needed.
+
+
+
+###############################################
+Below is the Original Instruction from Razoyo
+###############################################
+
 # Razoyo Developer Test
 
 The goal of this mini-project is to develop some PHP classes that allow Magento product information to be displayed in several different formats (CSV, XML, and JSON). You will be connecting to a Magento store that sells children's golf apparel: <https://www.shopjuniorgolf.com/>
