@@ -31,10 +31,10 @@ class JSONFormat implements FormatInterface
         $outputJSONString = '';
 
              // append to JSON string
-            $outputJSONString .= "{\"sku\" : ". $product['sku']. "},\n";
-            $outputJSONString .= "{\"name\" : " . $product['name']. "},\n";
-            $outputJSONString .= "{\"price\" : " . $product['price']. "},\n";
-            $outputJSONString .= "{\"short_description\" : " . $product['short_description']. "},\n";
+            $outputJSONString .= "{\"sku\" : \"". $product['sku']. "\",\n";
+            $outputJSONString .= "\"name\" : \"" . $product['name']. ",\n";
+            $outputJSONString .= "\"price\" : " . $product['price']. ",\n";
+            $outputJSONString .= "\"short_description\" : \"" . $product['short_description']. "\"},\n";
            
         return $outputJSONString;
     }
