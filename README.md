@@ -1,4 +1,5 @@
-# this is a submission from Edward Jeong for the Razoyo's Developer Test as part of a job application.
+# this is a submission from Edward Jeong 
+for the Razoyo's Developer Test as part of a job application.
 
 Applicant : Edward Jeong
 Submit Date : March 10th 2019
@@ -6,11 +7,11 @@ Company : Razoyo
 
 The test asks applicant to implement PHP code to return appropriated formated product data from Magento's API.
 
-# execution note
+## execution note
 To keep the api key secure, I created "env.php" file.  This file register key value for environmental variable "RAZOYO_TEST_KEY"  To execute correctly this submission, you need to set value for "RAZOYO_TEST_KEY"
 
 
-#Assumptions
+## Assumptions
 From the instruction, I made following assumption to finish
     - The required " query data" are product data from product.info and product.list API.
 
