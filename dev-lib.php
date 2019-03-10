@@ -6,6 +6,40 @@
  */
 
 
+// JSONFormat has an input argument of an Array that contains info about a product
+// it returns SKU, name, price, short description of the product
+// in JSON format
+class JSONFormat implements FormatInterface
+{
+
+    public function start()
+    {
+        $JSONStart = "{";
+        return $JSONStart;
+    }
+
+    public function finish()
+    {
+        $JSONEnd = "}";
+        return $JSONEnd;
+    }
+
+    // get a product info as argument
+    // return XML format of that product
+    public function formatProduct( $product)
+    {
+        $outputJSONString = '';
+
+             // append to JSON string
+            $outputJSONString .= "{\"sku\" : ". $product['sku']. "},\n";
+            $outputJSONString .= "{\"name\" : " . $product['name']. "},\n";
+            $outputJSONString .= "{\"price\" : " . $product['price']. "},\n";
+            $outputJSONString .= "{\"short_description\" : " . $product['short_description']. "},\n";
+           
+        return $outputJSONString;
+    }
+}
+
 
 // CSVFormat has an input argument of an Array that contains info about a product
 // it returns SKU, name, price, short description of the product
@@ -122,7 +156,9 @@ class FormatFactory
         if ($formatKey == 'xml') {
             $result = new XMLFormat();
         }
-
+        if ($formatKey == 'json') {
+            $result = new JSONFormat();
+        }
 
         return $result;
 

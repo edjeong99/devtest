@@ -15,7 +15,7 @@ $apiWsdl = 'https://www.shopjuniorgolf.com/api/?wsdl';
 $apiUser = 'devtest';
 $apiKey = getenv('RAZOYO_TEST_KEY');
 
-$formatKey = 'csv'; // csv, xml, or json
+$formatKey = 'json'; // csv, xml, or json
 
 // Connect to SOAP API using PHP's SoapClient class
 // Feel free to create your own classes to organize code
