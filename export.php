@@ -15,12 +15,12 @@ $apiWsdl = 'https://www.shopjuniorgolf.com/api/?wsdl';
 $apiUser = 'devtest';
 $apiKey = getenv('RAZOYO_TEST_KEY');
 
-$formatKey = 'json'; // csv, xml, or json
+$formatKey = 'csv'; // csv, xml, or json
 
 // Connect to SOAP API using PHP's SoapClient class
 // Feel free to create your own classes to organize code
 
-
+// adding param for SOAP API call
 $contextOptions = array(
     'ssl' => array(
     'verify_peer' => false,
@@ -46,27 +46,22 @@ $session = $client->login($apiUser, $apiKey);
 // returns prod id, sku, name
 $products = $client->call($session, 'catalog_product.list');
 
-// for testing purpose, use only first 2 product in the product list
-$products = array_chunk($products, 2);
-$products = $products[0];
 
 // for each product, get price and short description 
 for ($i = 0; $i < count($products); $i++) {
 
     $product_data = $client->call($session, 'catalog_product.info', $products[$i]["product_id"]);
-//echo $product_data["price"] . "\n";
+
     $products[$i]["price"] = (array_key_exists('price', $product_data)) ? $product_data["price"] : null;
     $products[$i]["short_description"] = $product_data["short_description"];
 }
-
-//  print_r($products);
 
 $client->endSession($session);
 
 // You will need to create a FormatFactory.
 $factory = new FormatFactory();
 
-// assign appropriate instance of Format Class
+// $format gets appropriate instance of Format Class
 $format = $factory->create($formatKey);  
 
 // See ProductOutput in raz-lib.php for reference

@@ -1,4 +1,4 @@
-# this is a submission from Edward Jeong 
+# This is a submission from Edward Jeong 
 for the Razoyo's Developer Test as part of a job application.
 
 Applicant : Edward Jeong
@@ -22,13 +22,17 @@ From the instruction, I made following assumption to finish
 
     - Header row for CSV format are the titles of each column, such as sku and price.
 
+    - JSON format consist of array of JSON format of product.  
+
 ## Performance Issue
 My codes call product.info API for each product in synchronous way which takes long time to complete.  For future improvement, I would change it to be asynchronous if needed.
 
 
 
-###############################################
-Below is the Original Instruction from Razoyo
+
+
+## Below is the Original Instruction from Razoyo
+
 ###############################################
 
 # Razoyo Developer Test

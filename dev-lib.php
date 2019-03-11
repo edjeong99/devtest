@@ -5,24 +5,26 @@
  * 
  */
 
-
-// JSONFormat has an input argument of an Array that contains info about a product
-// it returns array of JSON object that contains
+// JSONFormat class receives an argument of an Array that contains info about a product
+// it returns JSON object that contains
 // SKU, name, price, short description of the product
 
 class JSONFormat implements FormatInterface
 {
-
+    // the JSON format of products can be contained in
+    // array using start/finish
+    // however, due to ProductOutput only send one product at a time
+    // I didn't want to put comma separating products
     public function start()
     {
-        $JSONStart = "[";
-        return $JSONStart;
+        // $JSONStart = "[";
+        // return $JSONStart;
     }
 
     public function finish()
     {
-        $JSONEnd = "]";
-        return $JSONEnd;
+        // $JSONEnd = "]";
+        // return $JSONEnd;
     }
 
     // get a product info as argument
@@ -35,14 +37,14 @@ class JSONFormat implements FormatInterface
             $outputJSONString .= "{\"sku\" : \"". $product['sku']. "\",\n";
             $outputJSONString .= "\"name\" : \"" . $product['name']. "\",\n";
             $outputJSONString .= "\"price\" : \"" . $product['price']. "\",\n";
-            $outputJSONString .= "\"short_description\" : \"" . $product['short_description']. "\"},\n";
+            $outputJSONString .= "\"short_description\" : \"" . $product['short_description']. "\"}\n";
            
         return $outputJSONString;
     }
 }
 
 
-// CSVFormat has an input argument of an Array that contains info about a product
+// CSVFormat class receives an argument of an Array that contains info about a product
 // it returns SKU, name, price, short description of the product
 // in CSV format
 class CSVFormat implements FormatInterface
@@ -54,12 +56,8 @@ class CSVFormat implements FormatInterface
     public function start()
     {
         $CSVStart = '';
-    //  $CSVStart = "Content-type: text/csv \n";
-    //  $CSVStart .= "Content-Disposition: attachment; filename=productInfo" . date('Y-m-d') . ".csv\r\n"; 
-    //  $CSVStart .="Pragma: no-cache\n"; 
-    //  $CSVStart .="Expires: 0 \n"; 
-     $CSVStart .= "SKU" . $this->delimiter . "Name" . $this->delimiter . "Price" . $this->delimiter . "Short Description \r\n";
-     return $CSVStart;
+        $CSVStart .= "SKU" . $this->delimiter . "Name" . $this->delimiter . "Price" . $this->delimiter . "Short Description \r\n";
+        return $CSVStart;
     }
 
     public function finish()
@@ -102,7 +100,7 @@ class CSVFormat implements FormatInterface
 }
 
 
-// XMLFormat has an input argument of an Array that contains info about a product
+// XMLFormat class receives an argument of an Array that contains info about a product
 // it returns SKU, name, price, short description of the product
 // in XML format
 class XMLFormat implements FormatInterface
@@ -138,9 +136,9 @@ class XMLFormat implements FormatInterface
 }
 
 
-// FormatFactory take a formatKey and
-// return an instance of Class that match formatKey
-// returned Class has method of start, finish and formatProduct
+// FormatFactory class receives an argument of a formatKey and
+// return an instance of Class that matches formatKey
+// Returned Class has method of start, finish and formatProduct
 // that returns product info configured in that format
 class FormatFactory 
 {
